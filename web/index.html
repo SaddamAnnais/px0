@@ -600,8 +600,23 @@
       </div>
     </div>
 
+    <section id="terminal-panel" aria-label="Integrated terminal" hidden>
+      <div id="terminal-resizer" title="Drag to resize terminal"></div>
+      <header id="terminal-toolbar">
+        <strong>Terminal</strong>
+        <span id="terminal-state" role="status">Ready</span>
+        <span class="grow"></span>
+        <button id="terminal-interrupt" class="mini" type="button" title="Interrupt foreground command (Ctrl+C)">Interrupt</button>
+        <button id="terminal-restart" class="mini" type="button" title="Start a new shell when stopped">Restart</button>
+        <button id="terminal-stop" class="mini" type="button" title="Stop shell and its foreground commands">Stop</button>
+        <button id="terminal-hide" class="mini" type="button" title="Hide terminal (Ctrl+`); shell keeps running">Hide</button>
+      </header>
+      <div id="terminal-surface"></div>
+    </section>
+
     <!-- Bottom Status Bar -->
     <footer id="status">
+      <button id="btn-terminal" class="mini" type="button" title="Toggle terminal (Ctrl+`)" aria-controls="terminal-panel" aria-expanded="false">&gt;_ Terminal</button>
       <!-- Selection actions: replace the buttons and size below while code is selected -->
       <div id="footer-sel">
         <span class="sel-chip">Selection</span>

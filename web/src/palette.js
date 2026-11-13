@@ -23,6 +23,7 @@ import { getSelectedRangeInfo } from './selbar.js';
 import { enterEditMode, exitEditMode, saveActiveFile } from './editview.js';
 import { promptNewItem } from './newitem.js';
 import { navigateToTips, showTipWidget } from './tips.js';
+import { toggleWorkspaceTerminal } from './terminal.js';
 
 export const overlay = $('#overlay');
 export const palInput = $('#pal');
@@ -31,6 +32,7 @@ export let pal = null;
 
 
 export const COMMANDS = [
+  { name: 'View: Toggle Terminal (Ctrl+`)', run: toggleWorkspaceTerminal },
   { name: withKeys('File: Copy Source Code ({Mod+C})'), run: () => {
     const info = getSelectedRangeInfo();
     const d = doc_();

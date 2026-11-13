@@ -70,10 +70,10 @@ type Server struct {
 	lsp       *lspManager
 	tel       *telemetry.Service // nil in tests; Track is nil-safe
 	agent     *agentManager      // nil unless main wires editing for this session
-	threads   *threadManager    // nil unless editing is wired: threads run on the same harness
-	pr        *prSession        // nil unless main launched this process as `px0 pr ...`
-	diffBase  string            // ref /api/diff and /api/gutter diff against; "HEAD" unless in PR mode
-	prHeadSHA string            // PR mode only: the checked-out PR head commit. Frozen boundary between
+	threads   *threadManager     // nil unless editing is wired: threads run on the same harness
+	pr        *prSession         // nil unless main launched this process as `px0 pr ...`
+	diffBase  string             // ref /api/diff and /api/gutter diff against; "HEAD" unless in PR mode
+	prHeadSHA string             // PR mode only: the checked-out PR head commit. Frozen boundary between
 	// the PR's own diff (diffBase..prHeadSHA) and the reviewer's local edits
 	// since checkout (prHeadSHA..working tree); refreshed on Pull.
 	gitWatcher *GitWatcher
@@ -89,8 +89,9 @@ type Server struct {
 
 	// streamsDone closes when the HTTP server starts shutting down, so event
 	// streams end their responses cleanly instead of being cut when we exit.
-	streamsDone chan struct{}
-	endStreams  sync.Once
+	streamsDone    chan struct{}
+	endStreams     sync.Once
+	terminalActive int32
 }
 
 // EndStreams ends every open event stream. Register it with
@@ -124,6 +125,7 @@ func (s *Server) routePath(subpath string) string {
 }
 
 func (s *Server) registerRoutes() {
+	s.mux.HandleFunc(s.routePath("/api/terminal"), s.handleTerminal)
 	sub, _ := fs.Sub(assets, "web")
 	staticPrefix := s.routePath("/static/")
 	s.mux.Handle(staticPrefix, s.handleStatic(sub, staticPrefix))
@@ -323,7 +325,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var out http.ResponseWriter = rec
 	w.Header().Set("Cache-Control", "no-store")
 	w.Header().Set("Content-Security-Policy", contentSecurityPolicy)
-	if strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") && !isSSE {
+	if strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") && !isSSE && !strings.EqualFold(r.Header.Get("Upgrade"), "websocket") {
 		w.Header().Set("Content-Encoding", "gzip")
 		w.Header().Add("Vary", "Accept-Encoding")
 		gz := gzipPool.Get().(*gzip.Writer)

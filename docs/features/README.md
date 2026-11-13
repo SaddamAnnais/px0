@@ -106,3 +106,5 @@ Engineered from the ground up for instantaneous response times and zero-friction
 
 - **[Editor Virtualization & Memory Scavenging](editor-virtualization.md)**: Handles 500,000-line files effortlessly by rendering only ~60 visible rows in the browser DOM. Automatically releases memory back to the operating system after 15 seconds of inactivity.
 - **[Remote Workspaces & Cloud Inspection](remote-workspaces.md)**: Run px0 on remote servers, cloud VMs, Docker containers, or CI runners and view code in your local browser over Tailscale or private networks without SSH keys, port forwarding setups, or remote desktop daemons.
+
+- [Integrated terminal](terminal.md): project shell, toggle shortcut, resizing, and session lifecycle.

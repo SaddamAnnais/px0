@@ -149,3 +149,23 @@ make build
 ## License
 
 [MIT License](LICENSE) © Arpit Bhayani
+
+## Integrated terminal (fork)
+
+Click **>_ Terminal** in the status bar, press **Ctrl+`** (including on macOS), or choose **View: Toggle Terminal** from the command palette. A login shell starts in the current project folder only when you first open the terminal. Standard interactive commands, ANSI colors, arrow keys, and Ctrl+C are supported.
+
+Drag the divider above the terminal to resize it. **Interrupt** sends Ctrl+C to the foreground command. **Hide** keeps the shell running; **Stop** terminates the session; **Restart** starts another shell after it stops. Closing or reloading the page ends its session. Each workspace allows one terminal connection. Terminal scrollback is limited to 2,000 lines.
+
+This fork supports terminals on macOS and Unix, using the shell in `SHELL` (falling back to `/bin/sh`). Terminal access requires a same-origin browser page accessed through a loopback address such as `http://127.0.0.1:7777`; remote access is not supported. A workbench workspace uses its own project folder. Terminal assets are embedded and loaded on demand, with no Node.js runtime requirement.
+
+Automatic upstream updates are disabled by default in this fork so they do not replace the terminal feature. Build updates from this fork instead.
+
+To build this fork without replacing the original px0 installation:
+
+```sh
+bun scripts/build-web.js
+go build -trimpath -ldflags='-s -w' -o px0-terminal .
+./px0-terminal
+```
+
+Go 1.25+ and Bun are build tools only. The resulting binary includes terminal assets.

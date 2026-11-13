@@ -7,6 +7,14 @@ export const TIPS_STORAGE_KEY_INDEX = 'px0.tips.lastIndex';
 
 export const DEFAULT_TIPS = [
   {
+    id: "integrated-terminal",
+    title: "Project Terminal",
+    category: "Navigation",
+    tag: "Terminal",
+    content: "Press **Ctrl + `** or click **Terminal** in the status bar to open a shell in your project folder. Hide keeps it running; Stop ends the session.",
+    shortcut: "Ctrl+`"
+  },
+  {
     id: "file-navigation",
     title: "Quick File Navigation",
     category: "Navigation",

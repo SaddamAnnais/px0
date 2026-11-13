@@ -278,3 +278,7 @@ px0 employs several complementary strategies to maintain an ultra-lean binary fo
 ### Self-Update Integrity
 
 Before `px0 --update` executes or installs a release binary, it verifies the download against the SHA-256 digest in that release's `checksums.txt` asset. Missing, malformed, or mismatched checksum data aborts the update without replacing the current executable.
+
+## Integrated terminal (fork)
+
+See [terminal internals](terminal.md) for the lazy PTY/WebSocket session, loopback access checks, embedded frontend assets, and cleanup lifecycle.

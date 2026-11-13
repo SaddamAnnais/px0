@@ -26,11 +26,13 @@ import { submitBatch } from './agent.js';
 import { reindexWorkspace } from './panels.js';
 import { enterEditMode, exitEditMode, saveActiveFile, editTextarea } from './editview.js';
 import { navigateToTips } from './tips.js';
+import { toggleWorkspaceTerminal } from './terminal.js';
 
 /* Each entry lists alternative combos, written as for keyLabel in state.js so
    they show as ⌘/⌥/⇧ on a Mac and Ctrl/Alt/Shift elsewhere. Browsers keep
    Ctrl+W and Cmd+W for themselves, so Alt+W is the close shortcut shown. */
 export const SHORTCUTS = [
+  [['Ctrl+`'], 'Toggle terminal'],
   [['Mod+,'], 'Open settings'],
   [['Mod+K'], 'Quick search / palette'], [['Mod+P'], 'Go to file'],
   [['Mod+Shift+P'], 'Command palette'], [['Mod+Shift+O'], 'Go to symbol'],
@@ -112,6 +114,13 @@ export function initShortcuts() {
   });
 
   addEventListener('keydown', e => {
+    if (e.ctrlKey && e.code === 'Backquote' && !e.altKey && !e.metaKey && !e.shiftKey) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleWorkspaceTerminal();
+      return;
+    }
+    if (e.target instanceof Element && e.target.closest('#terminal-panel')) return;
     const mod = e[MOD];
 
     if (e.key === 'Escape') {

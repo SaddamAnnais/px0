@@ -27,3 +27,5 @@ web/vendor/*.min.js.gz
 # Logs
 *.log
 px0
+
+px0-terminal

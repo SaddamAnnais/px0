@@ -33,6 +33,7 @@ import { initEditView } from './editview.js';
 import { initNewItem } from './newitem.js';
 import { initTips, startTipsAsync } from './tips.js';
 import { initReviewFlow } from './reviewflow.js';
+import { initWorkspaceTerminal } from './terminal.js';
 
 // Initialize all subsystems
 initRenderer();
@@ -67,6 +68,7 @@ initImageViewer();
 initLineComment();
 initUnpushed();
 initPRScope();
+initWorkspaceTerminal();
 
 // Bootstrap application lifecycle
 (async function boot() {

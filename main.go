@@ -46,7 +46,7 @@ func main() {
 		showVer      = flag.Bool("version", false, "print version and exit")
 		showVerShort = flag.Bool("v", false, "print version and exit (shorthand)")
 		doUpdate     = flag.Bool("update", false, "check for and install latest version of px0")
-		noUpdate     = flag.Bool("no-update", false, "do not auto-update px0 on startup")
+		noUpdate     = flag.Bool("no-update", true, "do not auto-update px0 on startup (default for this fork)")
 		noColor      = flag.Bool("no-color", false, "disable colour output")
 		quiet        = flag.Bool("quiet", false, "suppress narration")
 		verbose      = flag.Bool("verbose", false, "log startup steps, requests, searches, symbols, and agent prompts to terminal")
