@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="static/style.css">
 <link rel="stylesheet" href="static/themes.css">
 <link rel="stylesheet" href="static/workbench.css">
+<link rel="stylesheet" href="static/recent-projects.css">
 </head>
 <!-- The workbench: what a bare `px0` opens. web/src/workbench.js drives it
      (bundled to static/workbench.js); the server side is workbench.go. -->
@@ -22,6 +23,7 @@
   <div class="wb-scroll">
     <main class="wb-main">
       <header class="wb-hero">
+        <button id="wb-recent-projects" class="wb-btn" type="button" title="Open recent project (Ctrl+R)">Recent Projects · Ctrl+R</button>
         <div class="empty-logo">
           <img class="logo-dark" src="https://px0.ai/logo/px0-logo-dark.png" alt="px0" width="160" height="60">
           <img class="logo-light" src="https://px0.ai/logo/px0-logo-light.png" alt="px0" width="160" height="60">

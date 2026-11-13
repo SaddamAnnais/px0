@@ -34,8 +34,11 @@ import { initNewItem } from './newitem.js';
 import { initTips, startTipsAsync } from './tips.js';
 import { initReviewFlow } from './reviewflow.js';
 import { initWorkspaceTerminal } from './terminal.js';
+import { initRecentProjects, openRecentProjects } from './recent-projects.js';
 
 // Initialize all subsystems
+initRecentProjects(() => S.meta?.workbench || new URL('projects/', document.baseURI).href);
+$('#btn-recent-projects').addEventListener('click', openRecentProjects);
 initRenderer();
 initTabs();
 initEditView();

@@ -6,6 +6,10 @@
 import { $, esc } from './state.js';
 import { listThemes, currentTheme, setTheme, getStoredTheme, chooseThemePreference } from './theme.js';
 import { showMetrics, initMetricsMenu } from './metricsview.js';
+import { initRecentProjects, openRecentProjects } from './recent-projects.js';
+
+initRecentProjects(() => document.baseURI);
+$('#wb-recent-projects').addEventListener('click', openRecentProjects);
 
 const req = async (path, body) => {
   const opts = body === undefined ? {} : {

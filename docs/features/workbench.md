@@ -83,3 +83,9 @@ What you opened, and which clone each repository's PRs use, is saved in `$XDG_ST
 ## Flags
 
 The workbench passes `-no-lsp`, `-no-git`, `-no-agent`, `-no-telemetry` and `-agent` on to every workspace it opens. `-host`, `-port`, `-base-path` and `-no-open` apply to the workbench itself. To open the current directory directly, as before, run `px0 .`.
+
+## Recent-project picker (fork)
+
+`Ctrl+R` opens a shared searchable picker from the dashboard, workbench projects, and standalone projects. It loads recorded projects from `api/wb/state`, orders them by recency, and matches partial names case-insensitively, including ordered fuzzy matches. Paths support substring matches. Arrow keys select; Enter opens; Escape cancels and restores focus. Buttons on the dashboard and status bar make the feature discoverable.
+
+`web/src/recent-projects.js` is bundled into both entry points. `web/recent-projects.css` is embedded and shared. Workbench children use their parent base path; standalone servers lazily serve a nested workbench under `projects/` using `recent_projects.go`, preserving disabled language servers and agent state. Its children are closed before HTTP shutdown. No project starts just from opening the picker.

@@ -342,6 +342,7 @@ func main() {
 		}()
 		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 		defer cancel()
+		pxSrv.CloseProjectWorkbench()
 		_ = srv.Shutdown(ctx)
 		close(shutDown)
 	}()
@@ -355,6 +356,7 @@ func main() {
 	lsp.Close()
 	agent.Close()
 	pxSrv.CloseThreads()
+	pxSrv.CloseProjectWorkbench()
 	pr.Close()
 
 	if interrupted {

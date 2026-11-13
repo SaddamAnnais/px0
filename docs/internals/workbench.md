@@ -68,3 +68,9 @@ An item added by `/api/wb/open` that fails before its child is ready is removed 
 ## Security
 
 `/api/wb/browse` and `/api/wb/complete` list folders anywhere on disk, and `/api/wb/open` can start a workspace on any of them. Requests that change anything go through `localPost`: POST only, with a `Host` that is an IP address or localhost, and an `Origin` that matches it. GET requests for state and folder listings, and requests to start a workspace, go through `trustedGet`, which applies the same `Host` check against DNS rebinding. Children bind only to 127.0.0.1 and can be reached only through the proxy. When bound to a non-loopback address, the workbench prints a warning that anyone who can reach it can browse the machine.
+
+## Recent-project picker (fork)
+
+`Ctrl+R` opens a shared searchable picker from the dashboard, workbench projects, and standalone projects. It loads recorded projects from `api/wb/state`, orders them by recency, and matches partial names case-insensitively, including ordered fuzzy matches. Paths support substring matches. Arrow keys select; Enter opens; Escape cancels and restores focus. Buttons on the dashboard and status bar make the feature discoverable.
+
+`web/src/recent-projects.js` is bundled into both entry points. `web/recent-projects.css` is embedded and shared. Workbench children use their parent base path; standalone servers lazily serve a nested workbench under `projects/` using `recent_projects.go`, preserving disabled language servers and agent state. Its children are closed before HTTP shutdown. No project starts just from opening the picker.

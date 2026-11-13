@@ -24,6 +24,7 @@ import { enterEditMode, exitEditMode, saveActiveFile } from './editview.js';
 import { promptNewItem } from './newitem.js';
 import { navigateToTips, showTipWidget } from './tips.js';
 import { toggleWorkspaceTerminal } from './terminal.js';
+import { openRecentProjects } from './recent-projects.js';
 
 export const overlay = $('#overlay');
 export const palInput = $('#pal');
@@ -32,6 +33,7 @@ export let pal = null;
 
 
 export const COMMANDS = [
+  { name: 'File: Open Recent Project (Ctrl+R)', run: openRecentProjects },
   { name: 'View: Toggle Terminal (Ctrl+`)', run: toggleWorkspaceTerminal },
   { name: withKeys('File: Copy Source Code ({Mod+C})'), run: () => {
     const info = getSelectedRangeInfo();

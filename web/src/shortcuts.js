@@ -32,6 +32,7 @@ import { toggleWorkspaceTerminal } from './terminal.js';
    they show as ⌘/⌥/⇧ on a Mac and Ctrl/Alt/Shift elsewhere. Browsers keep
    Ctrl+W and Cmd+W for themselves, so Alt+W is the close shortcut shown. */
 export const SHORTCUTS = [
+  [['Ctrl+R'], 'Open recent project'],
   [['Ctrl+`'], 'Toggle terminal'],
   [['Mod+,'], 'Open settings'],
   [['Mod+K'], 'Quick search / palette'], [['Mod+P'], 'Go to file'],

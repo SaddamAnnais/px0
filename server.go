@@ -43,6 +43,7 @@ import (
 //go:embed web/index.html web/style.css web/themes web/vendor
 //go:embed web/workbench.html web/workbench.css web/workbench.js
 //go:embed web/app.js
+//go:embed web/recent-projects.css
 var embedded embed.FS
 
 // assets is the embedded web/ directory.
@@ -89,9 +90,12 @@ type Server struct {
 
 	// streamsDone closes when the HTTP server starts shutting down, so event
 	// streams end their responses cleanly instead of being cut when we exit.
-	streamsDone    chan struct{}
-	endStreams     sync.Once
-	terminalActive int32
+	streamsDone            chan struct{}
+	endStreams             sync.Once
+	terminalActive         int32
+	projectWorkbenchMu     sync.Mutex
+	projectWorkbench       *workbench
+	projectWorkbenchClosed bool
 }
 
 // EndStreams ends every open event stream. Register it with
@@ -125,6 +129,7 @@ func (s *Server) routePath(subpath string) string {
 }
 
 func (s *Server) registerRoutes() {
+	s.mux.HandleFunc(s.routePath("/projects/"), s.handleProjectWorkbench)
 	s.mux.HandleFunc(s.routePath("/api/terminal"), s.handleTerminal)
 	sub, _ := fs.Sub(assets, "web")
 	staticPrefix := s.routePath("/static/")

@@ -7,6 +7,14 @@ export const TIPS_STORAGE_KEY_INDEX = 'px0.tips.lastIndex';
 
 export const DEFAULT_TIPS = [
   {
+    id: "recent-project-picker",
+    title: "Switch Projects Quickly",
+    category: "Navigation",
+    tag: "Projects",
+    content: "Press **Ctrl+R** from any project or the dashboard, then type part of a recent project name. Use arrow keys and Enter to open it; Escape cancels.",
+    shortcut: "Ctrl+R"
+  },
+  {
     id: "integrated-terminal",
     title: "Project Terminal",
     category: "Navigation",
