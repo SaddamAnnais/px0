@@ -46,7 +46,7 @@ export const SHORTCUTS = [
   [['F12', 'Mod+Click'], 'Go to definition'], [['Shift+F12'], 'Find all references'],
   [['Alt+Shift+H'], 'Call trail (callers / callees)'],
   [['Mod+J'], 'Toggle right sidebar / inspector'],
-  [['Alt+Left', 'Alt+Right'], 'Navigate back / forward'], [['Mod+B'], 'Toggle sidebar'],
+  [['Ctrl+-', 'Ctrl+Shift+-'], 'Navigate back / forward'], [['Mod+B'], 'Toggle sidebar'],
   [['Alt+W'], 'Close tab'], [['Alt+Shift+T'], 'Reopen closed tab'], [['Ctrl+Tab'], 'Next tab'],
   [['Alt+1…9'], 'Select tab'], [['Double click'], 'Highlight all occurrences'],
   [['Mod+A'], 'Select whole file'],
@@ -205,8 +205,11 @@ export function initShortcuts() {
       if (e.shiftKey) findReferences(); else gotoDefinition();
       return;
     }
-    if (e.altKey && e.key === 'ArrowLeft') { e.preventDefault(); go(-1); return; }
-    if (e.altKey && e.key === 'ArrowRight') { e.preventDefault(); go(1); return; }
+    if (e.ctrlKey && !e.metaKey && !e.altKey && (e.code === 'Minus' || e.key === '-' || e.key === '_')) {
+      e.preventDefault();
+      go(e.shiftKey ? 1 : -1);
+      return;
+    }
     if (e.ctrlKey && e.key === 'Tab') {
       e.preventDefault();
       if (S.tabs.length > 1) switchTab((S.active + (e.shiftKey ? -1 : 1) + S.tabs.length) % S.tabs.length);

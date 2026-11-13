@@ -172,6 +172,8 @@ Go 1.25+ and Bun are build tools only. The resulting binary includes terminal as
 
 ## Open recent projects (fork)
 
-Press **Ctrl+R** on the Workbench dashboard or inside any open project to show a searchable recent-project picker. Type a partial name such as `resol` to find `xps-pot-product-resolution-backend`; matching is case-insensitive and also supports characters in order with gaps. Paths support partial substring matches. Use **↑/↓** to select, **Enter** to open, and **Esc** to close. There is also a **Recent Projects** button and a **File: Open Recent Project** command.
+Press **Ctrl+R** on the Workbench dashboard or inside any open project to show a searchable recent-project picker. Type a partial name such as `resol` to find `xps-pot-product-resolution-backend`; matching is case-insensitive and also supports characters in order with gaps. Paths support partial substring matches. Use **↑/↓** to select, **Enter** to open in the current tab, **Cmd+Enter** (macOS) or **Ctrl+Enter** (other platforms) to open in a new browser tab, and **Esc** to close. There is also a **Recent Projects** button and a **File: Open Recent Project** command.
 
 This shortcut uses Control on macOS too. It takes priority over browser reload and terminal history search; Command+R remains the browser reload shortcut on macOS. Standalone project sessions create a lightweight embedded workbench on first use and stop its project processes at shutdown.
+
+Code navigation uses **Ctrl+-** for back and **Ctrl+Shift+-** for forward, including on macOS. The old Option+arrow history bindings are removed. Terminal input retains its shell shortcuts.

@@ -217,7 +217,7 @@ If the HTML has not arrived yet, the line waits in `d.mdLine` and `drawPreview` 
 
 A click handler on `#md` routes plain left clicks. Modified clicks fall through to the browser, which opens the `/api/raw` href in a new tab.
 
-- `data-anchor` without `data-path` calls `mdJump`. It pushes the current position to history, scrolls to `md-<anchor>`, and pushes the target block's line, so Alt+Left and Alt+Right move between the two.
+- `data-anchor` without `data-path` calls `mdJump`. It pushes the current position to history, scrolls to `md-<anchor>`, and pushes the target block's line, so Ctrl+- and Ctrl+Shift+- move between the two.
 - `data-path` calls `mdFollow`, which handles four cases:
   - A link to the current file becomes `mdJump`.
   - A folder is detected by probing `/api/tree?dir=<path>` and revealed in the explorer.

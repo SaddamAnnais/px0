@@ -42,7 +42,7 @@ Fast code discovery is essential when reviewing large codebases or inspecting ag
 
 - **[Fuzzy File Search & Quick Open](fuzzy-file-search.md)**: Jump directly to any file in the workspace using progressive fuzzy filtering (`Cmd/Ctrl+P`). It scores matches by boundary transitions, file extensions, and recent tab activity so target files appear with only 2–3 keystrokes.
 - **[Full Workspace Search](workspace-search.md)**: Search across every file in the repository for text patterns or regular expressions (`Cmd/Ctrl+Shift+F`). Results are grouped by file with context snippets and match counts.
-- **[In-File Search & Caret Navigation](in-file-search.md)**: Quickly find occurrences within the currently active document (`Cmd/Ctrl+F`), jump to line and column coordinates (`Cmd/Ctrl+G`), and traverse browsing history (`Alt+Left` / `Alt+Right`).
+- **[In-File Search & Caret Navigation](in-file-search.md)**: Quickly find occurrences within the currently active document (`Cmd/Ctrl+F`), jump to line and column coordinates (`Cmd/Ctrl+G`), and traverse browsing history (`Ctrl+-` / `Ctrl+Shift+-`).
 
 ---
 

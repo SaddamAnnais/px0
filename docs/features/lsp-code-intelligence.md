@@ -71,7 +71,7 @@ Instead of navigating away from your current code to check parameter types or st
 | `Alt+Shift+H` | Function/Method | Open Call Trail (Call Hierarchy) |
 | `Hover` | Identifier | Show Type Signature & Documentation Card |
 | `Alt+U` | Selected Code | Find usages of selected symbol |
-| `Alt+Left` / `Alt+Right` | Global | Return back to origin / step forward in navigation history |
+| `Ctrl+-` / `Ctrl+Shift+-` | Global | Return back to origin / step forward in navigation history |
 
 ---
 

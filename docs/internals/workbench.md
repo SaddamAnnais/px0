@@ -71,6 +71,6 @@ An item added by `/api/wb/open` that fails before its child is ready is removed 
 
 ## Recent-project picker (fork)
 
-`Ctrl+R` opens a shared searchable picker from the dashboard, workbench projects, and standalone projects. It loads recorded projects from `api/wb/state`, orders them by recency, and matches partial names case-insensitively, including ordered fuzzy matches. Paths support substring matches. Arrow keys select; Enter opens; Escape cancels and restores focus. Buttons on the dashboard and status bar make the feature discoverable.
+`Ctrl+R` opens a shared searchable picker from the dashboard, workbench projects, and standalone projects. It loads recorded projects from `api/wb/state`, orders them by recency, and matches partial names case-insensitively, including ordered fuzzy matches. Paths support substring matches. Arrow keys select; Enter opens in the current tab; Cmd+Enter on macOS (Ctrl+Enter elsewhere) opens a new browser tab while preserving the current project; Escape cancels and restores focus. Buttons on the dashboard and status bar make the feature discoverable.
 
 `web/src/recent-projects.js` is bundled into both entry points. `web/recent-projects.css` is embedded and shared. Workbench children use their parent base path; standalone servers lazily serve a nested workbench under `projects/` using `recent_projects.go`, preserving disabled language servers and agent state. Its children are closed before HTTP shutdown. No project starts just from opening the picker.

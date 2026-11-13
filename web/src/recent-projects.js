@@ -1,3 +1,5 @@
+import { isMac } from './state.js';
+
 let recentProjectsDialog = null;
 let recentProjectsInput = null;
 let recentProjectsList = null;
@@ -52,7 +54,7 @@ function renderRecentProjects() {
     recentProjectsList.appendChild(row);
   }
   recentProjectsStatus.textContent = recentProjectMatches.length
-    ? `${recentProjectMatches.length} recent project${recentProjectMatches.length === 1 ? '' : 's'} · ↑↓ select · Enter open · Esc close`
+    ? `${recentProjectMatches.length} recent project${recentProjectMatches.length === 1 ? '' : 's'} · ↑↓ select · Enter open · ${isMac ? '⌘' : 'Ctrl+'}Enter new tab · Esc close`
     : query ? 'No matching recent projects.' : 'No recent projects yet. Open a folder from the Workbench first.';
   updateRecentProjectSelection();
 }
@@ -140,7 +142,13 @@ export function initRecentProjects(resolveBase) {
     } else if (event.key === 'Enter' && document.activeElement === recentProjectsInput) {
       event.preventDefault();
       const selected = recentProjectsList.children[recentProjectSelection];
-      if (selected) location.assign(selected.href);
+      if (!selected) return;
+      if (event.metaKey || event.ctrlKey) {
+        window.open(selected.href, '_blank', 'noopener');
+        recentProjectsDialog.close();
+      } else {
+        location.assign(selected.href);
+      }
     }
   }, { capture: true });
 }

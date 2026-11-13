@@ -7,11 +7,19 @@ export const TIPS_STORAGE_KEY_INDEX = 'px0.tips.lastIndex';
 
 export const DEFAULT_TIPS = [
   {
+    id: "code-navigation-history",
+    title: "Back and Forward in Code",
+    category: "Navigation",
+    tag: "History",
+    content: "Press **Ctrl+-** to go back through code locations and **Ctrl+Shift+-** to go forward. These use Control on macOS too.",
+    shortcut: "Ctrl+-"
+  },
+  {
     id: "recent-project-picker",
     title: "Switch Projects Quickly",
     category: "Navigation",
     tag: "Projects",
-    content: "Press **Ctrl+R** from any project or the dashboard, then type part of a recent project name. Use arrow keys and Enter to open it; Escape cancels.",
+    content: "Press **Ctrl+R** from any project or the dashboard, then type part of a recent project name. Use arrow keys and Enter to open it, or Cmd+Enter on Mac (Ctrl+Enter elsewhere) for a new browser tab; Escape cancels.",
     shortcut: "Ctrl+R"
   },
   {
