@@ -13,7 +13,7 @@ import { hideThreadsSidebar } from './thread.js';
 import { overlay, openPalette, closePalette } from './palette.js';
 import { moveCursor, moveCol, moveWord, caretToEdge } from './cursor.js';
 import { showCalls } from './calls.js';
-import { SEL_KEYS, runSelectionAction, selectAll, clearSelectAll, copySelectAll, getSelectedRangeInfo } from './selbar.js';
+import { SEL_KEYS, runSelectionAction, selectAll, clearSelectAll, copySelectAll } from './selbar.js';
 
 import { cycleTheme } from './theme.js';
 import { previewing, togglePreview, previewKey, selectPreview } from './markdown.js';
@@ -278,12 +278,7 @@ export function initShortcuts() {
     if (plainMod && (e.key === 'a' || e.key === 'A')) { e.preventDefault(); if (previewing()) selectPreview(); else selectAll(); return; }
     if (plainMod && (e.key === 'c' || e.key === 'C')) {
       if (copySelectAll()) { e.preventDefault(); return; }
-      const info = getSelectedRangeInfo();
-      if (info) {
-        e.preventDefault();
-        runSelectionAction(info.isMarkdownPreview ? 'copy-preview-text' : 'copy-source');
-        return;
-      }
+      return;
     }
 
     if (handleVimKeyDown(e)) return;
