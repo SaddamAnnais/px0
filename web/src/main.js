@@ -35,6 +35,7 @@ import { initTips, startTipsAsync } from './tips.js';
 import { initReviewFlow } from './reviewflow.js';
 import { initWorkspaceTerminal } from './terminal.js';
 import { initRecentProjects, openRecentProjects } from './recent-projects.js';
+import { restoreWorkspaceTabs } from './workspace-tabs.js';
 
 // Initialize all subsystems
 initRecentProjects(() => S.meta?.workbench || new URL('projects/', document.baseURI).href);
@@ -155,6 +156,7 @@ initWorkspaceTerminal();
   };
 
   let hasGitChanges = await applyGitSidebarState();
+  const restoredTabs = await restoreWorkspaceTabs();
 
   const params = new URLSearchParams(window.location.search);
   const initialPath = params.get('path');
@@ -170,7 +172,7 @@ initWorkspaceTerminal();
       window.history.replaceState({}, '', cleanUrl);
     } catch {}
   } else {
-    if (hasGitChanges) await selectChangedFileTab();
+    if (!restoredTabs && hasGitChanges) await selectChangedFileTab();
   }
 
   if (inGitMode()) {
@@ -203,7 +205,7 @@ initWorkspaceTerminal();
           await triggerRefresh();
           if (!initialPath) {
             hasGitChanges = await applyGitSidebarState();
-            if (hasGitChanges) await selectChangedFileTab();
+            if (!restoredTabs && S.tabs.length === 0 && hasGitChanges) await selectChangedFileTab();
             if (inGitMode()) {
               await expandDirtyDirs();
               const activeDoc = S.tabs[S.active];
