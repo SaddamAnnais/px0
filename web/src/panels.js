@@ -42,6 +42,10 @@ export async function reindexWorkspace() {
 
 export function initPanels() {
   $('#btn-reindex').addEventListener('click', reindexWorkspace);
+  try {
+    const savedWidth = Number(localStorage.getItem('px0.explorerWidth'));
+    if (savedWidth >= 170 && savedWidth <= 620) $('#side').style.width = savedWidth + 'px';
+  } catch {}
 
   /* sidebar resize */
   (() => {
@@ -51,6 +55,13 @@ export function initPanels() {
       if (!dragging) return;
       $('#side').style.width = Math.max(170, Math.min(620, e.clientX)) + 'px';
     });
-    addEventListener('mouseup', () => { if (dragging) { dragging = false; rz.classList.remove('drag'); layout(); render(); } });
+    addEventListener('mouseup', () => {
+      if (!dragging) return;
+      dragging = false;
+      rz.classList.remove('drag');
+      try { localStorage.setItem('px0.explorerWidth', parseFloat($('#side').style.width)); } catch {}
+      layout();
+      render();
+    });
   })();
 }

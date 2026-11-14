@@ -48,7 +48,7 @@ input { font: inherit; color: inherit; background: none; border: 0; outline: 0; 
 
 /* ---------- sidebar ---------- */
 #side {
-  width: 340px; flex: none; background: var(--bg2); border-right: 1px solid var(--line);
+  width: 420px; max-width: 60vw; flex: none; background: var(--bg2); border-right: 1px solid var(--line);
   display: flex; flex-direction: column; overflow: hidden;
 }
 body.side-hidden #side, body.side-hidden #resizer { display: none; }
