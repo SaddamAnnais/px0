@@ -40,7 +40,7 @@ export function initLineAttribution() {
 
   function chooseLine(row) {
     const doc = doc_();
-    if (!doc || !S.meta?.git || doc.isImage || !row) {
+    if (!doc || !S.meta?.git || doc.isImage || doc.isMedia || !row) {
       badge.hidden = true;
       return;
     }

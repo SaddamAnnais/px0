@@ -186,7 +186,7 @@ function editTopLine() {
 export function syncEditUI() {
   const d = doc_();
   if (!editSwitch) return;
-  if (!d || d.isImage || d.deleted || d.diffRef) {
+  if (!d || d.isImage || d.isMedia || d.deleted || d.diffRef) {
     editSwitch.hidden = true;
     if (btnEditMode) btnEditMode.hidden = true;
     if (btnSaveFile) btnSaveFile.hidden = true;
@@ -225,7 +225,7 @@ export function syncEditUI() {
 
 export async function enterEditMode(line) {
   const d = doc_();
-  if (!d || d.isImage || d.deleted || d.diffRef) return;
+  if (!d || d.isImage || d.isMedia || d.deleted || d.diffRef) return;
 
   if (d.total > 10000 || (d.size && d.size > 1024 * 1024)) {
     const sizeStr = d.size ? ` (${(d.size / 1024 / 1024).toFixed(1)} MB)` : '';

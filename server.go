@@ -160,6 +160,7 @@ func (s *Server) registerRoutes() {
 	s.mux.HandleFunc(s.routePath("/api/file"), s.handleFile)
 	s.mux.HandleFunc(s.routePath("/api/close"), s.handleClose)
 	s.mux.HandleFunc(s.routePath("/api/raw"), s.handleRaw)
+	s.mux.HandleFunc(s.routePath("/api/media"), s.handleMedia)
 	s.mux.HandleFunc(s.routePath("/api/file/save"), s.handleFileSave)
 	s.mux.HandleFunc(s.routePath("/api/fs/new"), s.handleFSNew)
 	s.mux.HandleFunc(s.routePath("/api/markdown"), s.handleMarkdown)
@@ -1302,6 +1303,11 @@ func (s *Server) handleFile(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		fail(w, 404, err.Error())
+		return
+	}
+	if contentType := mediaType(rel); contentType != "" && st.Mode().IsRegular() {
+		kind, _, _ := strings.Cut(contentType, "/")
+		writeJSON(w, map[string]any{"path": rel, "media": kind, "size": st.Size()})
 		return
 	}
 	if imageExt[strings.ToLower(filepath.Ext(rel))] {

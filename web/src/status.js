@@ -40,7 +40,7 @@ export function updateStatus() {
   }
 
 
-  const isCode = d && !d.isImage;
+  const isCode = d && !d.isImage && !d.isMedia;
   const inGit = !!S.meta?.git;
   const hasDiff = !!(d && d.diffAvailable);
   const isDiffOn = !!(d && d.diffMode);

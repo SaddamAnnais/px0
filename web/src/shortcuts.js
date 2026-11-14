@@ -182,7 +182,7 @@ export function initShortcuts() {
     }
     if (mod && !e.shiftKey && (e.key === 'e' || e.key === 'E')) {
       const d = doc_();
-      if (d && !d.isImage && !d.deleted && !d.diffRef) {
+      if (d && !d.isImage && !d.isMedia && !d.deleted && !d.diffRef) {
         e.preventDefault();
         if (d.isEditing) exitEditMode();
         else enterEditMode();
@@ -247,6 +247,7 @@ export function initShortcuts() {
     }
 
     if (inField(document.activeElement)) return;
+    if (doc_()?.isMedia) return;
 
     // [c / ]c (prev/next diff hunk) and [f / ]f (prev/next changed file) chords
     if (!mod && !e.altKey && !e.shiftKey) {

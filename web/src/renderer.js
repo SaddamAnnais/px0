@@ -257,7 +257,7 @@ export function render() {
 
 export function paint() {
   const d = doc_();
-  if (!d) { const c = $('#caret'); if (c) c.hidden = true; return; }
+  if (!d || d.isMedia) { const c = $('#caret'); if (c) c.hidden = true; return; }
   const lh = getLH();
   const top = vp.scrollTop;
   let first, last, anchorLine = 0, w = null;

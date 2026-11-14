@@ -111,7 +111,9 @@ export async function openFile(path, opts = {}) {
       return;
     }
     const isImg = !!j.image;
-    const hasDiff = !isImg && (!!j.diffAvailable || !!base);
+    const isMedia = j.media === 'audio' || j.media === 'video';
+    const isBinary = isImg || isMedia;
+    const hasDiff = !isBinary && (!!j.diffAvailable || !!base);
 
     let initialDiffMode = null;
     let initialOpenedInDiff = false;
@@ -131,15 +133,16 @@ export async function openFile(path, opts = {}) {
     }
 
     const d = {
-      path, name: path.split('/').pop(), lang: isImg ? 'image' : j.lang,
-      total: isImg ? 0 : j.total, maxCols: isImg ? 0 : j.maxCols,
-      size: j.size, lines: isImg ? [] : new Array(j.total),
-      chunks: new Set(isImg ? [] : [start / CHUNK]),
+      path, name: path.split('/').pop(), lang: isImg ? 'image' : isMedia ? j.media : j.lang,
+      total: isBinary ? 0 : j.total, maxCols: isBinary ? 0 : j.maxCols,
+      size: j.size, lines: isBinary ? [] : new Array(j.total),
+      chunks: new Set(isBinary ? [] : [start / CHUNK]),
       pending: new Set(), refining: new Set(), scrollTop: 0, cur: line || 1,
-      outline: null, gen: 0, markdown: !isImg && !!j.markdown, table: !isImg && !!j.table, isImage: isImg,
-      deleted: !isImg && !!j.deleted,
+      outline: null, gen: 0, markdown: !isBinary && !!j.markdown, table: !isBinary && !!j.table, isImage: isImg,
+      isMedia, mediaKind: isMedia ? j.media : '',
+      deleted: !isBinary && !!j.deleted,
       gutter: null,
-      diagnostics: (!isImg && j.diagnostics) || [],
+      diagnostics: (!isBinary && j.diagnostics) || [],
       diffMode: initialDiffMode,
       diffAvailable: hasDiff,
       diffDismissed: initialDismissed,
@@ -149,14 +152,14 @@ export async function openFile(path, opts = {}) {
       turnFiles,
       turnLabel,
     };
-    if (!isImg) {
+    if (!isBinary) {
       for (let i = 0; i < j.lines.length; i++) d.lines[j.start + i] = j.lines[i];
     }
-    d.lsp = (!isImg && j.lsp) || { state: 'off', server: '' };
+    d.lsp = (!isBinary && j.lsp) || { state: 'off', server: '' };
     S.tabs.push(d);
     idx = S.tabs.length - 1;
-    if (!isImg && j.refine) refineChunk(d, start / CHUNK);
-    if (!isImg) loadGutter(d);
+    if (!isBinary && j.refine) refineChunk(d, start / CHUNK);
+    if (!isBinary) loadGutter(d);
   }
   if (prev && prev !== S.tabs[idx]) prev.scrollTop = vp.scrollTop;
   if (prev !== S.tabs[idx]) { clearSelectAll(); clearFind(); }
@@ -221,7 +224,7 @@ export async function openFile(path, opts = {}) {
 // through every open path — the backend returns available:false for
 // clean/untracked files, so the extra request is cheap and self-limiting.
 export async function loadGutter(d) {
-  if (!S.meta?.git) return;
+  if (!S.meta?.git || d.isMedia || d.isImage) return;
   // Same stale-answer guard as drawDiff: the doc may be pointed at a different
   // commit (or back at the working tree) before this resolves.
   const ref = d.diffRef || '';
@@ -296,7 +299,7 @@ export async function reloadOpenTabs({ onlyIfChanged = false } = {}) {
     }
 
     const j = res.value;
-    if (j.image) {
+    if (j.image || j.media) {
       tgt.oldDoc.size = j.size;
       continue;
     }
@@ -373,7 +376,7 @@ export async function reloadOpenTabs({ onlyIfChanged = false } = {}) {
   if (onlyIfChanged && !anyChanged) return;
 
   // Load all gutters concurrently before initial paint
-  await Promise.allSettled(S.tabs.filter(t => !t.isImage).map(t => loadGutter(t)));
+  await Promise.allSettled(S.tabs.filter(t => !t.isImage && !t.isMedia).map(t => loadGutter(t)));
 
   const d = doc_();
   if (d) {

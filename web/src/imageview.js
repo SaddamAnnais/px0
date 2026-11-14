@@ -3,6 +3,7 @@ import { $, S, doc_, esc } from './state.js';
 import { on } from './bus.js';
 import { updateStatus } from './status.js';
 import { fmtBytes } from './metricsview.js';
+import { syncMediaView } from './mediaview.js';
 
 let ivInit = false;
 let isPanning = false;
@@ -14,6 +15,7 @@ export function isImageViewing(d = doc_()) {
 }
 
 export function syncImageView() {
+  syncMediaView();
   const d = doc_();
   const imgView = $('#imgview');
   if (!imgView) return;
