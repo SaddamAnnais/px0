@@ -1,6 +1,6 @@
 # Integrated terminal
 
-Use the status bar **Terminal** button, **Ctrl+`**, or the command palette **View: Toggle Terminal** action. The shell starts in the workspace root, including workbench child workspaces.
+Click **>_ Terminal** in the top toolbar to open or hide the terminal. The button stays highlighted while the terminal is visible. You can also use **Ctrl+`** or the command palette **View: Toggle Terminal** action. The shell starts in the workspace root, including workbench child workspaces.
 
 The terminal supports interactive shells and applications, ANSI colors, Unicode, copy/paste, Ctrl+C, and terminal resizing. Drag the top edge to change panel height.
 
