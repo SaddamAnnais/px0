@@ -183,6 +183,7 @@ func (s *Server) registerRoutes() {
 	s.mux.HandleFunc(s.routePath("/api/unpushed"), s.handleUnpushed)
 	s.mux.HandleFunc(s.routePath("/api/commitfiles"), s.handleCommitFiles)
 	s.mux.HandleFunc(s.routePath("/api/commitdetail"), s.handleCommitDetail)
+	s.mux.HandleFunc(s.routePath("/api/line-attribution"), s.handleLineAttribution)
 	s.mux.HandleFunc(s.routePath("/api/search"), s.handleSearch)
 	s.mux.HandleFunc(s.routePath("/api/outline"), s.handleOutline)
 	s.mux.HandleFunc(s.routePath("/api/def"), s.handleDef)

@@ -36,6 +36,7 @@ import { initReviewFlow } from './reviewflow.js';
 import { initWorkspaceTerminal } from './terminal.js';
 import { initRecentProjects, openRecentProjects } from './recent-projects.js';
 import { restoreWorkspaceTabs } from './workspace-tabs.js';
+import { initLineAttribution } from './line-attribution.js';
 
 // Initialize all subsystems
 initRecentProjects(() => S.meta?.workbench || new URL('projects/', document.baseURI).href);
@@ -73,6 +74,7 @@ initLineComment();
 initUnpushed();
 initPRScope();
 initWorkspaceTerminal();
+initLineAttribution();
 
 // Bootstrap application lifecycle
 (async function boot() {

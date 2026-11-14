@@ -976,6 +976,14 @@ body.threads-hidden #threads-side, body.threads-hidden #threads-resizer { displa
 }
 .row.cur { background: var(--cur); }
 .row.cur .g { color: var(--fg); }
+#line-author { position: absolute; z-index: 5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 11px/var(--lh) var(--ui); color: var(--faint); opacity: .55; padding: 0 6px; border-radius: var(--r); user-select: none; background: var(--bg); }
+#line-author:hover, #line-author:focus-visible { opacity: 1; color: var(--fg); background: var(--bg3); }
+#line-author[hidden], #line-author-card[hidden] { display: none; }
+#line-author-card { position: fixed; z-index: 200; width: min(370px, calc(100vw - 24px)); max-height: 250px; overflow: auto; padding: 14px; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg2); box-shadow: 0 8px 28px #0005; font: 12px/1.5 var(--ui); }
+#line-author-card a { display: block; margin-top: 8px; color: var(--accent); }
+.line-author-name { font-weight: 600; }
+.line-author-date { color: var(--faint); }
+.line-author-summary { margin-top: 7px; white-space: pre-wrap; overflow-wrap: anywhere; }
 .g {
   position: sticky; left: 0; z-index: 2; flex: none; text-align: right;
   width: calc(var(--gw, 1) * 1ch + 30px);
