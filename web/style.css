@@ -131,8 +131,8 @@ body.side-hidden #side, body.side-hidden #resizer { display: none; }
 /* ---------- tree ---------- */
 .tw { display: block; }
 .tr {
-  display: flex; align-items: center; gap: 5px; height: 22px; padding-right: 8px;
-  white-space: nowrap; cursor: pointer; user-select: none; font-size: 12.5px;
+  display: flex; align-items: center; gap: 5px; height: 27px; padding-right: 8px;
+  white-space: nowrap; cursor: pointer; user-select: none; font-size: 15px;
 }
 .tr:hover { background: var(--bg3); }
 .tr.sel { background: var(--sel); }
