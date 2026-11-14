@@ -139,10 +139,8 @@ initWorkspaceTerminal();
   // completes (common right after `px0 <pr-url>`) would otherwise never
   // auto-select a diff tab -- until the next manual reload.
   const applyGitSidebarState = async () => {
-    // The unpushed list decides this too: a clean tree with local commits
-    // still belongs in Git view, which is the only place they are listed.
     await refreshUnpushed();
-    const showGit = hasGitView();
+    const showGit = !!S.meta?.pr && hasGitView();
     await setSidebarMode(showGit ? 'git' : 'files', { expandDirty: showGit });
     return !!(S.meta?.git && ((S.meta.gitChanges > 0) || S.meta?.pr));
   };
