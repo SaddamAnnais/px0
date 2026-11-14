@@ -1293,9 +1293,13 @@ body.word-wrap .c { white-space: pre-wrap; word-break: break-word; overflow-wrap
   background: color-mix(in srgb, var(--gi) 50%, transparent);
 }
 /* Split: deletions and additions paired side by side, each half its own mini-row. */
-.diff-row-pair { display: flex; }
+.diff-row-pair { display: grid; grid-template-columns: minmax(0, var(--diff-left-width, 50%)) minmax(0, 1fr); }
 .diff-side { flex: 1 1 50%; min-width: 0; }
 .diff-side-left { border-right: 1px solid var(--line); }
+.diff-split { position: relative; }
+.diff-divider { position: absolute; top: 0; bottom: 0; left: var(--diff-left-width, 50%); width: 8px; transform: translateX(-50%); z-index: 2; cursor: col-resize; touch-action: none; }
+.diff-divider:hover, .diff-divider:focus-visible, .diff-resizing .diff-divider { background: color-mix(in srgb, var(--accent) 45%, transparent); }
+.diff-resizing, .diff-resizing * { cursor: col-resize !important; user-select: none; }
 
 /* ---------- markdown preview ---------- */
 #mdview { position: absolute; inset: 0; overflow: auto; background: var(--bg); }

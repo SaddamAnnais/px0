@@ -14,6 +14,7 @@ import { gotoDefinition } from './lsp.js';
 import { hoverAt } from './hover.js';
 import { pushHistory } from './history.js';
 import { COMMIT_STATUS, loadCommitFiles, cachedCommitFiles } from './commitfiles.js';
+import { createDiffDivider, initDiffDivider } from './diff-divider.js';
 
 export const diffview = $('#diffview');
 const diffContent = $('#diffcontent');
@@ -722,6 +723,7 @@ function unifiedTable(hunk, reviewable = true) {
 function splitTable(hunk, reviewable = true) {
   const table = document.createElement('div');
   table.className = 'diff-table diff-split';
+  table.append(createDiffDivider());
   const diagMap = buildDiagMap();
   for (const pair of pairRows(hunk.rows)) {
     let leftRow = pair.left;
@@ -1071,6 +1073,7 @@ function diffLinePrefixSuffix(oldStr, newStr, oldSyntaxHtml = '', newSyntaxHtml 
 }
 
 export function initDiff() {
+  initDiffDivider(diffContent);
   const sw = $('#diff-switch');
   if (!sw) return;
   sw.addEventListener('mousedown', e => {
